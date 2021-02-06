@@ -2,35 +2,38 @@
   <div class="container">
       <div>
         <div class="col-6 col-lg-4">
-          <strong>From </strong>
-          <b-autocomplete
-            rounded
-            placeholder="eg: New Delhi"
-            :open-on-focus="true"
-            field="display"
-          >
-          </b-autocomplete>
+          <b-field label="From">
+            <b-autocomplete
+              rounded
+              placeholder="eg: New Delhi"
+              :open-on-focus="true"
+              field="display"
+            >
+            </b-autocomplete>
+          </b-field>
         </div>
         <div class="col-6 col-lg-4">
-          <strong>To </strong>
-          <b-autocomplete
-            rounded
-            placeholder="eg: Bombay"
-            :open-on-focus="true"
-            field="display"
-          >
-          </b-autocomplete>
+          <b-field label="To">
+            <b-autocomplete
+              rounded
+              placeholder="eg: Bombay"
+              :open-on-focus="true"
+              field="display"
+            >
+            </b-autocomplete>
+          </b-field>
         </div>
         <div class="col-6 col-lg-2" id="departure-date-picker">
-          <strong>Departure</strong>
-          <b-datepicker
-            rounded
-            placeholder="Select Travel Date"
-            size="is-small"
-            position="is-bottom-left"
-            :min-date="new Date()"
-          >
-          </b-datepicker>
+          <b-field label="Departure Date">
+            <b-datepicker
+              rounded
+              placeholder="Select Travel Date"
+              size="is-small"
+              position="is-bottom-left"
+              :min-date="new Date()"
+            >
+            </b-datepicker>
+          </b-field>
         </div>
       </div>
       <div style="text-align:center">
