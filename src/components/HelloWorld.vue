@@ -4,10 +4,12 @@
         <div class="col-6 col-lg-4">
           <b-field label="From">
             <b-autocomplete
+              :data="fromCityList"
               rounded
               placeholder="eg: New Delhi"
               :open-on-focus="true"
-              field="display"
+              field="PlaceName"
+              @typing="onCityInput($event, 'from')"
             >
             </b-autocomplete>
           </b-field>
@@ -16,10 +18,13 @@
           <b-field label="To">
             <b-autocomplete
               rounded
+              :data="toCityList"
               placeholder="eg: Bombay"
               :open-on-focus="true"
-              field="display"
+              field="PlaceName"
+              @input="onCityInput($event, 'to')"
             >
+              <template #empty>No results found</template>
             </b-autocomplete>
           </b-field>
         </div>
@@ -44,10 +49,34 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import store from "../store"
+import { IGetCityListResponse } from "@/helpers/types"
+import debounce from 'lodash/debounce'
+
 export default {
-  name: "HelloWorld",
-  methods: {}
+    name: "HelloWorld",
+    data() {
+      return {
+          fromCityList:[],
+          toCityList: []
+      }
+    },
+    methods: {
+        onCityInput: debounce(function onCityInput (event: string,type: "from" | "to") {
+          if (event.length < 2) {
+            return
+          }
+          store.dispatch("fetchCities", event)
+            .then((data: IGetCityListResponse) => {
+                if (type === "from") {
+                    this.fromCityList = data.Places
+                } else {
+                    this.toCityList = data.Places
+                }
+            })
+        }, 500)
+    }
 };
 </script>
 
