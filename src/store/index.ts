@@ -6,17 +6,24 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    departureFlights: []
+    departureFlights: [],
+    returnFlights: []
   },
   getters: {
     departureFlights(state) {
       return state.departureFlights;
-    }
+    },
+    returnFlights(state) {
+      return state.returnFlights;
+    },
   },
   mutations: {
     saveDepartureFlights(state, payload) {
       state.departureFlights = payload;
     },
+    saveReturnFlights(state, payload) {
+      state.returnFlights = payload;
+    }
   },
   actions: {
     fetchCities(context, query) {
