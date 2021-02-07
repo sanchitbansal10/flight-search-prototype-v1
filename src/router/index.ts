@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
+import ListPage from "../components/ListPage"
 
 Vue.use(VueRouter);
 
@@ -13,11 +14,13 @@ const routes: Array<RouteConfig> = [
   {
     path: "/list",
     name: "ListPage",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/ListPage.vue")
+    props: (route) => {
+      const { sourceId, destinationId, departureDate, isRoundTrip, returnDate } = route.query;
+      return {
+        sourceId, destinationId, departureDate, isRoundTrip, returnDate
+      }
+    },
+    component: ListPage
   }
 ];
 

@@ -1,8 +1,12 @@
 <template>
-    <div>
-        <FlightList :flightList=departureFlights />
-        <h1> Return Flights </h1>
-        <FlightList :flightList=returnFlights />
+    <div class="columns">
+        <div class="column">
+            <FlightList :flightList=departureFlights />
+        </div>
+        <div class="column" v-if="isRoundTrip">
+            <h1> Return Flights </h1>
+            <FlightList :flightList=returnFlights />
+        </div>
     </div>
 </template>
 
@@ -12,12 +16,29 @@
   import FlightList from "@/components/FlightList.vue";
 
   export default {
-    name: "ListPageComponent",
+    name: "ListPage",
     components: { FlightList },
     data() {
       return {
         loading: false,
         incorrectData: false
+      }
+    },
+    props: {
+      sourceId: {
+        type: String
+      },
+      destinationId: {
+        type: String
+      },
+      isRoundTrip: {
+        type: Boolean
+      },
+      departureDate: {
+        type: String
+      },
+      returnDate: {
+        type: String
       }
     },
     methods: {},
@@ -27,11 +48,11 @@
       },
       returnFlights() {
         return store.getters.returnFlights
-      }
+      },
     },
     mounted(): void {
       this.loading = true;
-      const { sourceId, destinationId, departureDate, isRoundTrip, returnDate } = this.$route.query;
+      const { sourceId, destinationId, departureDate, isRoundTrip, returnDate } = this;
       if (!(sourceId && destinationId && departureDate)) {
         this.incorrectData = true;
         console.error("Incorrect Data")
