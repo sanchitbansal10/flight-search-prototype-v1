@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import config from "../../config.json"
-import { filterData } from "@/helpers/sortFilterHelpers";
+import { filterData, markSelectedFlight } from "@/helpers/sortFilterHelpers";
 
 Vue.use(Vuex);
 
@@ -50,9 +50,13 @@ export default new Vuex.Store({
       state.filteredReturnFlights = data;
     },
     selectDepartureFlight(state, payload) {
+      const selectedMarkedData = markSelectedFlight(state.filteredDepartureFlights, payload)
+      state.filteredDepartureFlights = selectedMarkedData
       state.selectedDepartureFlight = payload
     },
     selectReturnFlight(state, payload) {
+      const selectedMarkedData = markSelectedFlight(state.filteredReturnFlights, payload)
+      state.filteredReturnFlights= selectedMarkedData
       state.selectedReturnFlight = payload
     }
   },

@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <div class="column">
-      <FlightList :flightList="filteredDepartureFlights" v-on:select-flight="selectDepartureFlight"/>
+      <FlightList :flightList="filteredDepartureFlights" v-on:select-flight="selectDepartureFlight" />
       <div>
         <div>
           <div >
@@ -214,7 +214,7 @@ export default {
     Promise.all(getDepartureFlightsPromise).then(data => {
       store.commit(
         "saveDepartureFlights",
-        getFormattedFlightData(getMergedArray(data))
+        getFormattedFlightData("departure", getMergedArray(data))
       );
     });
 
@@ -232,7 +232,7 @@ export default {
       Promise.all(getReturnFlightsPromise).then(data => {
         store.commit(
           "saveReturnFlights",
-          getFormattedFlightData(getMergedArray(data))
+          getFormattedFlightData("departure", getMergedArray(data))
         );
       });
     }

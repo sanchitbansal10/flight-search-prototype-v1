@@ -1,5 +1,12 @@
 <template>
-  <div class="card" @click="$emit('select-flight', item)">
+  <div
+          class="card flight-card"
+          :class="[
+              item.cheapest ? 'highlight' : '',
+              item.selected? 'selected' : '',
+            ]"
+       @click="$emit('select-flight', item)"
+  >
     <div class="card-content">
       <div class="content">
         <div>
@@ -20,7 +27,7 @@
   import moment from "moment";
   export default {
     name: "FlightCard",
-    props: ["item", "click"],
+    props: ["item"],
     data() {
       return {
       }
@@ -33,4 +40,14 @@
 </script>
 
 <style lang="scss">
+    .flight-card {
+        cursor: pointer;
+    }
+    .highlight {
+        border: pink solid 2px;
+    }
+    .selected {
+        border: blue solid 2px;
+        color: red;
+    }
 </style>

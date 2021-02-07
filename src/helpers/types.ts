@@ -46,5 +46,7 @@ export interface FormattedFlightData {
     direct: boolean;
     carrier: Carrier;
     date: Date,
-    currency: Currency["Symbol"],
+    currency: Currency["Symbol"];
+    cheapest: boolean;
+    id: string;
 }

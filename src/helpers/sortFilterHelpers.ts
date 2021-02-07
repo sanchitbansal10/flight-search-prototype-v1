@@ -15,6 +15,18 @@ export const getPriceRange = (data: Array<FormattedFlightData>) => {
   return [lowest, highest]
 };
 
+export const markSelectedFlight = (data: Array<FormattedFlightData>, selectedFlight: FormattedFlightData) => {
+  if (selectedFlight) {
+    data.forEach((entry) => {
+      if (entry.id == selectedFlight.id) {
+        entry.selected = true;
+      } else {
+        entry.selected = false;
+      }
+    });
+  }
+  return data;
+}
 export const getPriceFilteredData = (data: Array<FormattedFlightData>, lowest: number, highest: number) => (
   data.filter(entry => entry.price >= lowest && entry.price <= highest)
 )
