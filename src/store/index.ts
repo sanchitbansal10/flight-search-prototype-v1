@@ -5,8 +5,19 @@ import config from "../../config.json"
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
+  state: {
+    departureFlights: []
+  },
+  getters: {
+    departureFlights(state) {
+      return state.departureFlights;
+    }
+  },
+  mutations: {
+    saveDepartureFlights(state, payload) {
+      state.departureFlights = payload;
+    },
+  },
   actions: {
     fetchCities(context, query) {
       return fetch(

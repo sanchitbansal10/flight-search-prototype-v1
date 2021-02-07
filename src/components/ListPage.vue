@@ -1,15 +1,17 @@
 <template>
     <div>
-        Hello
+        <FlightList :flightList=departureFlights />
     </div>
 </template>
 
 <script lang="ts">
-  import { getDateArrayTill } from "@/helpers/utils";
+  import { getDateArrayTill, getFormattedFlightData, getMergedArray } from "@/helpers/utils";
   import store from "../store";
+  import FlightList from "@/components/FlightList.vue";
 
   export default {
     name: "ListPageComponent",
+    components: { FlightList },
     data() {
       return {
         loading: false,
@@ -17,6 +19,11 @@
       }
     },
     methods: {},
+    computed: {
+      departureFlights() {
+        return store.getters.departureFlights
+      }
+    },
     mounted(): void {
       this.loading = true;
       const { sourceId, destinationId, departureDate } = this.$route.query;
@@ -31,7 +38,9 @@
             sourceId,destinationId, departureDate: date
         })
       );
-      Promise.all(getDepartureFlightsPromise).then(data => console.log(data))
+      Promise.all(getDepartureFlightsPromise).then(data => {
+        store.commit("saveDepartureFlights", getFormattedFlightData(getMergedArray(data)))
+      })
     }
   };
 
