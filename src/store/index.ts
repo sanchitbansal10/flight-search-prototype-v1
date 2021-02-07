@@ -19,9 +19,9 @@ export default new Vuex.Store({
         return res.json();
       });
     },
-    fetchFlights(context, payload) {
+    fetchFlights(context, {sourceId, destinationId, departureDate}) {
       return fetch(
-        `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browseroutes/v1.0/IN/INR/en-IN/${payload.query.source.id}/${payload.query.dest.id}/${payload.date}?inboundpartialdate=2020-14-04`,
+        `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browseroutes/v1.0/IN/INR/en-IN/${sourceId}/${destinationId}/${departureDate}?inboundpartialdate=2020-14-04`,
         {
           method: "GET",
           headers: config["x-rapidapi-headers"],
