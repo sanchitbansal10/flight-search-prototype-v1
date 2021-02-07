@@ -6,6 +6,10 @@
         <div>
           <div >
             <b-switch v-model="departureFlightFilters.direct">Direct</b-switch>
+            <b-field v-if="priceRange">
+              <b-slider tooltip-always v-model="departureFlightFilters.costFilter" :min="priceRange[0]" :max="priceRange[1]" :step="50" >
+              </b-slider>
+            </b-field>
             <div>
               Sort By
               <b-dropdown
@@ -64,6 +68,7 @@ import {
 } from "@/helpers/utils";
 import store from "../store";
 import FlightList from "@/components/FlightList.vue";
+import { getPriceRange } from "@/helpers/sortFilterHelpers";
 
 export interface ListPageState {
   loading: boolean;
@@ -72,7 +77,9 @@ export interface ListPageState {
     direct: boolean;
     sortVal: null | "COST" | "DATE";
     sortAscending: boolean;
+    costFilter: [];
   }
+  priceRange: []
 }
 export default {
   name: "ListPage",
@@ -84,8 +91,10 @@ export default {
       departureFlightFilters: {
         direct: false,
         sortVal: null,
-        sortAscending: true
-      }
+        sortAscending: true,
+        costFilter: []
+      },
+      priceRange: null
     };
   },
   props: {
@@ -110,7 +119,7 @@ export default {
       if (type == "departure" && this.departureFlightFilters.sortVal) {
         this.departureFlightFilters.sortAscending = !this.departureFlightFilters.sortAscending;
       }
-    },
+    }
   },
   computed: {
     filteredDepartureFlights() {
@@ -118,6 +127,12 @@ export default {
     },
     filteredReturnFlights() {
       return store.getters.filteredReturnFlights;
+    },
+    departureFlights() {
+      return store.getters.departureFlights
+    },
+    returnFlights() {
+      return store.getters.returnFlights;
     }
   },
   watch: {
@@ -126,6 +141,11 @@ export default {
         store.commit("departureFlightFilter", this.departureFlightFilters);
       },
       deep: true,
+    },
+    departureFlights: {
+      handler() {
+        this.priceRange = getPriceRange(this.departureFlights)
+      }
     }
   },
   mounted(): void {
