@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <div class="column">
-      <FlightList :flightList="filteredDepartureFlights" />
+      <FlightList :flightList="filteredDepartureFlights" v-on:select-flight="selectDepartureFlight"/>
       <div>
         <div>
           <div >
@@ -55,7 +55,18 @@
     </div>
     <div class="column" v-if="isRoundTrip">
       <h1>Return Flights</h1>
-      <FlightList :flightList="filteredReturnFlights" />
+      <FlightList :flightList="filteredReturnFlights" v-on:select-flight="selectReturnFlight" />
+    </div>
+    <div class="column" v-if="selectedDepartureFlight || selectedReturnFlight">
+      <div v-if="selectedDepartureFlight">
+        <FlightCard :item="selectedDepartureFlight" />
+      </div>
+      <div v-if="selectedReturnFlight">
+        <FlightCard :item="selectedReturnFlight" />
+      </div>
+      <div>
+        Total Price: {{getPrice}}
+      </div>
     </div>
   </div>
 </template>
@@ -69,6 +80,8 @@ import {
 import store from "../store";
 import FlightList from "@/components/FlightList.vue";
 import { getPriceRange } from "@/helpers/sortFilterHelpers";
+import FlightCard from "@/components/FlightCard.vue";
+import { FormattedFlightData } from "@/helpers/types";
 
 export interface ListPageState {
   loading: boolean;
@@ -83,7 +96,7 @@ export interface ListPageState {
 }
 export default {
   name: "ListPage",
-  components: { FlightList },
+  components: { FlightCard, FlightList },
   data(): ListPageState {
     return {
       loading: false,
@@ -119,6 +132,13 @@ export default {
       if (type == "departure" && this.departureFlightFilters.sortVal) {
         this.departureFlightFilters.sortAscending = !this.departureFlightFilters.sortAscending;
       }
+    },
+    selectDepartureFlight(item: FormattedFlightData) {
+      store.commit("selectDepartureFlight", item);
+    },
+    selectReturnFlight(item: FormattedFlightData) {
+      console.log("hello")
+      store.commit("selectReturnFlight", item);
     }
   },
   computed: {
@@ -133,7 +153,28 @@ export default {
     },
     returnFlights() {
       return store.getters.returnFlights;
-    }
+    },
+    selectedDepartureFlight() {
+      return store.getters.selectedDepartureFlight;
+    },
+    selectedReturnFlight() {
+      return store.getters.selectedReturnFlight;
+    },
+    getPrice() {
+      let currency;
+      let price = 0;
+      const selectedDepartureFlight = this.selectedDepartureFlight;
+      const selectedReturnFlight = this.selectedReturnFlight
+        if (selectedDepartureFlight) {
+          currency = selectedDepartureFlight.currency;
+          price = price + selectedDepartureFlight.price
+        }
+        if (selectedReturnFlight) {
+          currency = selectedReturnFlight.currency;
+          price = price + selectedReturnFlight.price
+        }
+        return currency + price
+      }
   },
   watch: {
     departureFlightFilters: {

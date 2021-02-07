@@ -1,24 +1,11 @@
 <template>
   <div v-if="flightList && flightList.length > 0">
-    <div
-      class="card"
-      v-for="(items, index) in flightList"
-      :key="index"
-    >
-      <div class="card-content">
-        <div class="content">
-          <div>
-            <div>
-              {{ items.carrier.Name }}
-            </div>
-            <div>
-              {{ moment(items.date).format("LLL") }}
-            </div>
-            <div>{{ items.currency }}{{ items.price }}</div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <FlightCard
+            v-for="(item, index) in flightList"
+            v-bind:item="item"
+            v-bind:key="index"
+            v-on="$listeners"
+    />
   </div>
   <div
     v-else
@@ -30,9 +17,12 @@
 
 <script lang="ts">
   import moment from "moment";
+  import FlightCard from "@/components/FlightCard.vue";
+  import { FormattedFlightData } from "@/helpers/types";
   export default {
     name: "FlightList",
-    props: ["flightList"],
+    components: { FlightCard },
+    props:["flightList"],
     data() {
       return {
       }

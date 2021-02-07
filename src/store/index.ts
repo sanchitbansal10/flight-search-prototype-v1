@@ -10,7 +10,9 @@ export default new Vuex.Store({
     departureFlights: [],
     returnFlights: [],
     filteredDepartureFlights: [],
-    filteredReturnFlights: []
+    filteredReturnFlights: [],
+    selectedDepartureFlight: null,
+    selectedReturnFlight: null
   },
   getters: {
     departureFlights(state) {
@@ -24,6 +26,12 @@ export default new Vuex.Store({
     },
     filteredReturnFlights(state) {
       return state.filteredReturnFlights
+    },
+    selectedDepartureFlight(state) {
+      return state.selectedDepartureFlight
+    },
+    selectedReturnFlight(state) {
+      return state.selectedReturnFlight
     }
   },
   mutations: {
@@ -40,6 +48,12 @@ export default new Vuex.Store({
     returnFlightFilter(state, payload) {
       const data = filterData(state.departureFlights, payload);
       state.filteredReturnFlights = data;
+    },
+    selectDepartureFlight(state, payload) {
+      state.selectedDepartureFlight = payload
+    },
+    selectReturnFlight(state, payload) {
+      state.selectedReturnFlight = payload
     }
   },
   actions: {
