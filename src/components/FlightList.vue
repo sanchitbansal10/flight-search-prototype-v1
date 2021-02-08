@@ -7,12 +7,6 @@
             v-on="$listeners"
     />
   </div>
-  <div
-    v-else
-    style="background-color:red;color:white;height:30px;text-align:center"
-  >
-    No Flights Found For this route
-  </div>
 </template>
 
 <script lang="ts">

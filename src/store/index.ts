@@ -46,7 +46,7 @@ export default new Vuex.Store({
       state.filteredDepartureFlights = data;
     },
     returnFlightFilter(state, payload) {
-      const data = filterData(state.departureFlights, payload);
+      const data = filterData(state.returnFlights, payload);
       state.filteredReturnFlights = data;
     },
     selectDepartureFlight(state, payload) {

@@ -1,77 +1,75 @@
 <template>
-  <div class="container">
-    <div>
-      <div class="col-6 col-lg-4">
-        <b-field label="Round Trip">
-          <b-switch
-                  v-model="isRoundTrip"
-                  :true-value=true
-                  :false-value=false
-          >
-            {{ isRoundTrip }}
-          </b-switch>
-        </b-field>
+  <div class="container home-container">
+    <img src="https://i.ibb.co/9r8cfNc/Hero-Text-Gradient.png" style="width:65%;" alt="Hero-Text-Gradient" border="0">
+    <b-field label="Round Trip">
+      <b-switch
+              v-model="isRoundTrip"
+              :true-value=true
+              :false-value=false
+      >
+      </b-switch>
+    </b-field>
+    <div class="columns" style="max-width: 1000px; margin: auto;">
+      <div class="column is-one-fifth">
         <b-field label="From">
           <b-autocomplete
-            :data="fromCityList"
-            rounded
-            placeholder="eg: New Delhi"
-            :open-on-focus="true"
-            field="PlaceName"
-            @typing="onCityInput($event, 'from')"
-            @select="onCitySelect($event, 'from')"
+                  :data="fromCityList"
+                  rounded
+                  placeholder="eg: New Delhi"
+                  :open-on-focus="true"
+                  field="PlaceName"
+                  @typing="onCityInput($event, 'from')"
+                  @select="onCitySelect($event, 'from')"
           >
             <template #empty>No results found</template>
           </b-autocomplete>
         </b-field>
       </div>
-      <div class="col-6 col-lg-4">
+      <div class="column is-one-fifth">
         <b-field label="To">
           <b-autocomplete
-            rounded
-            :data="toCityList"
-            placeholder="eg: Bombay"
-            :open-on-focus="true"
-            field="PlaceName"
-            @input="onCityInput($event, 'to')"
-            @select="onCitySelect($event, 'to')"
+                  rounded
+                  :data="toCityList"
+                  placeholder="eg: Bombay"
+                  :open-on-focus="true"
+                  field="PlaceName"
+                  @input="onCityInput($event, 'to')"
+                  @select="onCitySelect($event, 'to')"
           >
             <template #empty>No results found</template>
           </b-autocomplete>
         </b-field>
       </div>
-      <div class="col-6 col-lg-2" id="departure-date-picker">
+      <div class="column" id="departure-date-picker">
         <b-field label="Departure Date">
           <b-datepicker
-            rounded
-            placeholder="Select Travel Date"
-            size="is-small"
-            position="is-bottom-left"
-            :min-date="new Date()"
-            @input="onDateInput($event, 'departure')"
+                  rounded
+                  placeholder="Select Travel Date"
+                  position="is-bottom-left"
+                  :min-date="new Date()"
+                  @input="onDateInput($event, 'departure')"
           >
           </b-datepicker>
         </b-field>
       </div>
-        <div class="col-6 col-lg-2" id="return-date-picker">
-            <b-field label="Return Date">
-                <b-datepicker
-                    :disabled="!isRoundTrip"
-                    rounded
-                    placeholder="Select Return Date"
-                    size="is-small"
-                    position="is-bottom-left"
-                    :min-date="new Date()"
-                    @input="onDateInput($event, 'return')"
-                >
-                </b-datepicker>
-            </b-field>
-        </div>
-    </div>
-    <div style="text-align:center">
-      <b-button :disabled="allowFlightSearch" type="is-info" size="is-small" @click="onSearch">
-        Search
-      </b-button>
+      <div class="column" id="return-date-picker">
+        <b-field label="Return Date">
+          <b-datepicker
+                  :disabled="!isRoundTrip"
+                  rounded
+                  placeholder="Select Return Date"
+                  position="is-bottom-left"
+                  :min-date="new Date()"
+                  @input="onDateInput($event, 'return')"
+          >
+          </b-datepicker>
+        </b-field>
+      </div>
+      <div style="text-align:center;margin-top: 33px;" class="column is-1">
+        <b-button :disabled="allowFlightSearch" class="is-link" @click="onSearch">
+          Search
+        </b-button>
+      </div>
     </div>
   </div>
 </template>
@@ -169,4 +167,12 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+  .home-container {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100% !important;
+    background-image: url("https://i.ibb.co/VvjYyhf/Map-1.png");
+    background-size: cover;
+  }
+</style>
