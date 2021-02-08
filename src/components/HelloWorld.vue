@@ -13,6 +13,7 @@
       <div class="column is-one-fifth">
         <b-field label="From">
           <b-autocomplete
+                  id="from-city-selector"
                   :data="fromCityList"
                   rounded
                   placeholder="eg: New Delhi"
@@ -28,6 +29,7 @@
       <div class="column is-one-fifth">
         <b-field label="To">
           <b-autocomplete
+                  id="to-city-selector"
                   rounded
                   :data="toCityList"
                   placeholder="eg: Bombay"
