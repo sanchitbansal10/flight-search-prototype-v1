@@ -1,7 +1,12 @@
 # flight-search-prototype-v1
 
+## There is a hosted version of app here: https://romantic-wright-3c5e22.netlify.app/#/
+
+## This project was setup using Vue-CLI, Install it to run the repo.
+
 ## Project setup
 ```
+nvm use
 npm install
 ```
 
@@ -15,20 +20,7 @@ npm run serve
 npm run build
 ```
 
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Run your end-to-end tests
+### Run end-to-end tests
 ```
 npm run test:e2e
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
