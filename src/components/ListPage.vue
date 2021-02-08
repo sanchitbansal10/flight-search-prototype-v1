@@ -193,7 +193,7 @@ export default {
       type: String
     },
     isRoundTrip: {
-      type: Boolean
+      type: String
     },
     departureDate: {
       type: String
@@ -309,7 +309,7 @@ export default {
 
     // handle the return data
     // Since API doesnt give back the return data, making a exact opposite request with source and destination interchanged
-    if (isRoundTrip && returnDate) {
+    if (isRoundTrip === "true" && returnDate) {
       const dateArrayTillReturnDate = getDateArrayTill(returnDate);
       const getReturnFlightsPromise = dateArrayTillReturnDate.map(returnDate =>
         store.dispatch("fetchFlights", {

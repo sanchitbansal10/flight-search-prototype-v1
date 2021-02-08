@@ -149,7 +149,7 @@ export default {
           query: {
             sourceId: fromCity.PlaceId,
             destinationId: toCity.PlaceId,
-            isRoundTrip: isRoundTrip,
+            isRoundTrip: isRoundTrip ? "true" : "false",
             departureDate: departureDate,
             returnDate: returnDate,
           },
